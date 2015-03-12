@@ -1,17 +1,6 @@
 'use strict';
 
 // colors
-var SKY_L = {
-    H: 220,
-    S: 54,
-    L: 54
-};
-var SKY_R = {
-    H: 250,
-    S: 40,
-    L: 33
-};
-
 var TREE_COLOR = 'green';
 var FENCE_COLOR = 'brown';
 
@@ -23,18 +12,13 @@ var c = ctx;
 var centerX;
 var centerY;
 
-function drawSky(a) {
-    a = a || 1;
+function drawSky() {
     var bg = c.createLinearGradient(0, canvas.height, 0, 0);
-    var colorL = 'hsla(' + SKY_L.H + ',' + SKY_L.S + '%,' + SKY_L.L + '%,' + a +')';
-    var colorR = 'hsla(' + SKY_R.H + ',' + SKY_R.S + '%,' + SKY_R.L + '%,' + a +')';
 
-    bg.addColorStop(0, colorL);
-    bg.addColorStop(1, colorR);
+    bg.addColorStop(0, 'white');
+    bg.addColorStop(1, '#39a8e1');
 
     c.fillStyle = bg;
-    c.fillStyle = 'hsla(200, 0%, 0%, ' + a +')';
-
     c.fillRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -112,12 +96,8 @@ function drawTrees() {
 }
 
 function draw() {
-    var i;
-    var skyLayers = 2;
-
-    for (i = 0; i < skyLayers; i++) {
-        drawSky(0.5);
-    }
+    drawSky();
+    drawTrees();
 }
 
 function resize() {
