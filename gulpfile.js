@@ -21,7 +21,7 @@ gulp.task('styles', function() {
             })
         ]))
         .pipe($.sourcemaps.write())
-        .pipe(gulp.dest('dest'))
+        .pipe(gulp.dest('dist/styles'))
         .pipe(reload({
             stream: true
         }));
@@ -30,7 +30,7 @@ gulp.task('styles', function() {
 gulp.task('scripts', function() {
     return gulp.src('app/scripts/**/*.js')
         .pipe($.babel())
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist/scripts'));
 });
 
 gulp.task('html', function() {
@@ -64,6 +64,7 @@ gulp.task('serve', ['scripts', 'styles', 'html'], function() {
         port: 9000,
         server: {
             baseDir: ['dist'],
+            index: 'index.html',
             routes: {
                 '/bower_components': 'bower_components'
             }

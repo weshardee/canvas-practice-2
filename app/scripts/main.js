@@ -1,10 +1,6 @@
 'use strict';
 
-class Test {
-    constructor() {
-
-    }
-}
+import 'Tree';
 
 let x;
 
