@@ -1,8 +1,16 @@
 'use strict';
 
+class Test {
+    constructor() {
+
+    }
+}
+
+let x;
+
 // colors
-var TREE_COLOR = 'green';
-var FENCE_COLOR = 'brown';
+const TREE_COLOR = 'green';
+const FENCE_COLOR = 'brown';
 
 // initial setup
 var canvas = document.getElementById('canvas');
