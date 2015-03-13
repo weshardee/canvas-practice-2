@@ -1,6 +1,6 @@
 'use strict';
 
-import 'Tree';
+import './Tree';
 
 let x;
 
