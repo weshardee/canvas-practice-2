@@ -28,9 +28,8 @@ gulp.task('styles', function() {
 });
 
 gulp.task('scripts', function() {
-    return gulp.src('app/scripts/**/*.js')
-        .pipe($.babel())
-        .pipe(gulp.dest('dist/scripts'));
+    return gulp.src('app/**/*.js', {base: 'app'})
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('html', function() {

@@ -27,5 +27,13 @@
     "main-bower-files": "^2.5.0",
     "opn": "^1.0.0",
     "wiredep": "^2.0.0"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "dist",
+      "lib": "app",
+      "packages": "app/jspm_packages"
+    },
+    "configFile": "app/scripts/config.js"
   }
 }

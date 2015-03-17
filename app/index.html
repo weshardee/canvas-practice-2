@@ -23,7 +23,7 @@
     <![endif]-->
 
     <canvas id="canvas"></canvas>
-    
+
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
@@ -31,7 +31,11 @@
     <!-- endbuild -->
 
         <!-- build:js scripts/main.js -->
-        <script src="scripts/main.js"></script>
+        <script src="jspm_packages/system.js"></script>
+        <script src="scripts/config.js"></script>
+        <script>
+            System.import('main');
+        </script>
         <!-- endbuild -->
 </body>
 </html>
