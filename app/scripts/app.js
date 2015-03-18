@@ -27,19 +27,20 @@ export class App {
     addTrees() {
         var i;
         var x;
-        var height;
         var progress;
         var numTrees = 40;
-        var maxTreeHeight = 400;
-        var minTreeHeight = 220;
-        var treeHeightDelta = maxTreeHeight - minTreeHeight;
+        var depth;
 
         for (i = 0; i < numTrees; i++) {
+            depth = 3 * (1 - i / numTrees);
             progress = i / numTrees;
             x = canvas.width * Math.random();
-            height = treeHeightDelta * Math.random() * progress + minTreeHeight;
-            this._trees.push(new Tree(x, height));
+            this._trees.push(new Tree(x, depth));
         }
+
+        this._trees.sort((a, b) => {
+            return a.z > b.z;
+        });
     }
 
     drawSky() {
