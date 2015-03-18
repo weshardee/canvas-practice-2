@@ -27,7 +27,6 @@ export class App {
     addTrees() {
         var i;
         var x;
-        var color;
         var height;
         var progress;
         var numTrees = 40;
@@ -35,39 +34,11 @@ export class App {
         var minTreeHeight = 220;
         var treeHeightDelta = maxTreeHeight - minTreeHeight;
 
-        var h = 0;
-        var s = 0;
-        var l = 0;
-
-        var maxH = 150;
-        var minH = 100;
-        var deltaH = maxH - minH;
-
-        var maxS = 100;
-        var minS = 70;
-        var deltaS = maxS - minS;
-
-        var maxL = 40;
-        var minL = 25;
-        var deltaL = maxL - minL;
-
         for (i = 0; i < numTrees; i++) {
-            // drawSky(1 / numTrees); // create atmosphere effect;
-
             progress = i / numTrees;
-
-            h = Math.floor(deltaH * Math.random() + minH);
-            s = Math.floor(deltaS * Math.random() + minS);
-            l = Math.floor(deltaL * Math.random() + minL);
-
-            l = minL + Math.random() * progress * deltaL;
-
-            color = 'hsl(' + h + ', ' + s + '%, ' + l + '%)';
-
             x = canvas.width * Math.random();
             height = treeHeightDelta * Math.random() * progress + minTreeHeight;
-
-            this._trees.push(new Tree(x, height, color));
+            this._trees.push(new Tree(x, height));
         }
     }
 
