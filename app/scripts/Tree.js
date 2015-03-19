@@ -1,5 +1,6 @@
-const NUM_TREE_RUNGS = 3;
 import {Range} from 'Range';
+
+const NUM_TREE_RUNGS = 3;
 
 let heightRange = new Range(220, 400);
 let zRange = new Range(0.5, 1);
