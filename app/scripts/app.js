@@ -1,12 +1,14 @@
 'use strict';
 
 import {Tree} from './Tree';
+import {Fence} from './Fence';
 import {c, canvas} from 'canvas';
 
 export class App {
     constructor() {
         this._trees = [];
         this.addTrees();
+        this.fence = new Fence();
         this.draw();
     }
 
@@ -42,5 +44,6 @@ export class App {
     draw() {
         this.drawSky();
         this.drawTrees();
+        this.fence.draw();
     }
 }
