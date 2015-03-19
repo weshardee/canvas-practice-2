@@ -4,7 +4,7 @@ import {Range} from 'Range';
 let heightRange = new Range(220, 400);
 let zRange = new Range(0.5, 1);
 let hRange = new Range(100, 150);
-let sRange = new Range(75, 90);
+let sRange = new Range(50, 75);
 let lRange = new Range(25, 42);
 
 let canvas = document.getElementById('canvas');
