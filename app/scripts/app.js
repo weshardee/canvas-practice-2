@@ -25,7 +25,7 @@ export class App {
     }
 
     addTrees() {
-        let numTrees = canvas.width * 0.1;
+        let numTrees = canvas.width * 0.01;
 
         for (let i = 0; i < numTrees; i++) {
             let x = canvas.width * Math.random();
