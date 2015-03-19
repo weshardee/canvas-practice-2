@@ -1,5 +1,6 @@
 'use strict';
 
+import {Sky} from './sky';
 import {Rain} from './rain';
 import {Tree} from './tree';
 import {Fence} from './fence';
@@ -11,13 +12,11 @@ export class App {
     constructor() {
         this._entities = [];
         this._entities.push(new Fence());
+        this._entities.push(new Sky());
         this.addTrees();
         this.rain = new Rain(this._entities);
         this.draw();
-
-        setInterval(() => {
-            this.update();
-        }, UPDATE_DELAY);
+        this.update();
     }
 
     addRain() {
@@ -32,39 +31,20 @@ export class App {
         }
     }
 
-    drawSky() {
-        var bg = c.createLinearGradient(0, canvas.height, 0, 0);
-
-        bg.addColorStop(0, 'white');
-        bg.addColorStop(1, '#39a8e1');
-
-        c.fillStyle = bg;
-        c.fillRect(0, 0, canvas.width, canvas.height);
-    }
-
-
-    drawEntities() {
-        for(let i = 0; i < this._entities.length; i++) {
-            this._entities[i].draw();
-        }
-    }
-
     draw() {
         this._entities.sort((a, b) => {
             return a.z - b.z;
         });
 
         c.save();
-        this.drawSky();
-        this.drawEntities();
+        for (let entity of this._entities) {
+            entity.draw();
+        }
         c.restore();
-
-        window.requestAnimationFrame(() => {
-            this.draw();
-        });
     }
 
     update() {
+        console.log('update');
         let currentTime;
         let deltaTime;
 
@@ -74,16 +54,21 @@ export class App {
         if (this.lastUpdated === undefined) {
             this.lastUpdated = currentTime;
             this.deltaTime = 0;
-            return;
+        } else {
+            this.lastUpdated = currentTime;
+
+            while (deltaTime >= UPDATE_DELAY) {
+                deltaTime = deltaTime - UPDATE_DELAY;
+                this.rain.update(UPDATE_DELAY);
+            }
+
+            this.deltaTime = deltaTime;
+
+            this.draw();
         }
 
-        this.lastUpdated = currentTime;
-
-        while (deltaTime >= UPDATE_DELAY) {
-            deltaTime = deltaTime - UPDATE_DELAY;
-            this.rain.update(UPDATE_DELAY);
-        }
-
-        this.deltaTime = deltaTime;
+        window.requestAnimationFrame(() => {
+            this.update();
+        });
     }
 }

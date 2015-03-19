@@ -1,9 +1,9 @@
 import {Range} from 'range';
 import {c, canvas, mouseX} from 'canvas';
 
-const DROP_SIZE = 3;
-const DROP_VELOCITY = 20;
-const WIND = 2;
+const DROP_SIZE = 2;
+const DROP_VELOCITY = 10;
+const WIND = 3;
 const DROP_COLOR = 'hsla(200, 100%, 75%, 0.75)';
 
 let xRange = new Range(-canvas.width * 0.25, canvas.width * 1.25);
@@ -59,7 +59,7 @@ export class Rain {
 
     update(dt) {
         // generate drops
-        for (let i = 0; i < dt / 3; i++) {
+        for (let i = 0; i < dt / 4; i++) {
             this.addDrop();
         }
 
