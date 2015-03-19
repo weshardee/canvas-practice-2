@@ -14,8 +14,7 @@ export class App {
         let numTrees = canvas.width * 0.01;
 
         for (let i = 0; i < numTrees; i++) {
-            let x = canvas.width * Math.random();
-            this._trees.push(new Tree(x));
+            this._trees.push(new Tree());
         }
 
         this._trees.sort((a, b) => {

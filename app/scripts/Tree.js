@@ -4,18 +4,18 @@ import {c, canvas} from 'canvas';
 const NUM_TREE_RUNGS = 3;
 
 let heightRange = new Range(300, 500);
+let xRange = new Range(0, canvas.width);
 let zRange = new Range(0.5, 1);
 let hRange = new Range(100, 150);
 let sRange = new Range(50, 75);
 let lRange = new Range(25, 42);
 
 export class Tree {
-    constructor(x) {
+    constructor() {
         let powZ;
 
-        this.x = x;
-
-        // compute additional properties
+        // compute properties
+        this.x = xRange.getRandom();
         this.z = zRange.getRandom();
         powZ = this.z * this.z;
 
