@@ -12,6 +12,8 @@ let hRange = new Range(110, 150);
 let sRange = new Range(50, 75);
 let lRange = new Range(25, 42);
 
+let rungRange = new Range(4, 6);
+
 let trees = [];
 
 export class Tree {
@@ -29,6 +31,9 @@ export class Tree {
         this.width = this.height / widthRange.getRandom();
         this.projectedHeight = this.height * powZ;
         this.projectedWidth = this.width * powZ;
+
+        // rungs
+        this.rungs = Math.round(rungRange.getRandom());
 
         // color
         let h = hRange.getRandom();
@@ -78,12 +83,12 @@ export class Tree {
 
         c.fillStyle = this.color;
 
-        // // draw first rung
-        for (var i = 0; i < NUM_TREE_RUNGS; i++) {
-            progress = i / NUM_TREE_RUNGS;
+        // draw first rung
+        for (var i = 0; i < this.rungs; i++) {
+            progress = i / this.rungs;
 
             rungBaseY = -this.projectedHeight * Math.pow(progress, 1.2) + startY;
-            rungWidth = -this.projectedWidth * Math.pow(progress, 3) + this.projectedWidth;
+            rungWidth = -this.projectedWidth * Math.pow(progress, 2) + this.projectedWidth;
 
             c.beginPath();
             c.moveTo(this.x - rungWidth, rungBaseY);
