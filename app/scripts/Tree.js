@@ -2,6 +2,8 @@ import {Range} from 'Range';
 import {c, canvas} from 'canvas';
 
 const NUM_TREE_RUNGS = 3;
+const X_THRESHOLD = 40;
+const Z_THRESHOLD = 0.3;
 
 let heightRange = new Range(400, 500);
 let xRange = new Range(0, canvas.width);
@@ -10,15 +12,19 @@ let hRange = new Range(100, 150);
 let sRange = new Range(50, 75);
 let lRange = new Range(25, 42);
 
+let trees = [];
+
 export class Tree {
     constructor() {
         let powZ;
 
-        // compute properties
-        this.x = xRange.getRandom();
-        this.z = zRange.getRandom();
+        // position
+        this.setRandomPosition();
+
+        // depth
         powZ = this.z * this.z;
 
+        // size
         this.height = heightRange.getRandom();
         this.width = this.height / 4;
         this.projectedHeight = this.height * powZ;
@@ -30,6 +36,38 @@ export class Tree {
         let l = lRange.getRandom() / this.z; // increase lightness
 
         this.color = `hsl(${h}, ${s}%, ${l}%)`;
+    }
+
+    setRandomPosition() {
+        let i = 0;
+        let x = xRange.getRandom();
+        let z = zRange.getRandom();
+
+        let tooClose = true;
+
+        // position
+        while (tooClose && i < 10) {
+            i++;
+
+            tooClose = false; // loop will change this if any tree is too close
+
+            for (let tree of trees) {
+                let deltaX = Math.abs(tree.x - x);
+
+                if (deltaX < X_THRESHOLD * tree.z) {
+                    tooClose = true;
+
+                    x = xRange.getRandom();
+                    z = zRange.getRandom();
+
+                    break;
+                }
+            }
+        }
+
+        trees.push(this);
+        this.x = x;
+        this.z = z;
     }
 
     draw() {
