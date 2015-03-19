@@ -8,7 +8,7 @@ const Z_THRESHOLD = 0.3;
 let heightRange = new Range(400, 500);
 let xRange = new Range(0, canvas.width);
 let zRange = new Range(0.5, 1);
-let hRange = new Range(100, 150);
+let hRange = new Range(110, 150);
 let sRange = new Range(50, 75);
 let lRange = new Range(25, 42);
 
