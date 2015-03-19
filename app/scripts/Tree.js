@@ -19,6 +19,7 @@ let trees = [];
 export class Tree {
     constructor() {
         let powZ;
+        let shadowOpacity;
 
         // position
         this.setRandomPosition();
@@ -41,6 +42,11 @@ export class Tree {
         let l = lRange.getRandom() / this.z; // increase lightness
 
         this.color = `hsl(${h}, ${s}%, ${l}%)`;
+
+        // shadow color
+        shadowOpacity = 0.1 * powZ;
+        this.shadowColor = `rgba(0,0,0,${shadowOpacity})`;
+
     }
 
     setRandomPosition() {
@@ -81,20 +87,27 @@ export class Tree {
         let rungBaseY;
         let progress;
 
-        c.fillStyle = this.color;
+        c.beginPath();
 
-        // draw first rung
+        // draw rungs
         for (var i = 0; i < this.rungs; i++) {
             progress = i / this.rungs;
 
             rungBaseY = -this.projectedHeight * Math.pow(progress, 1.2) + startY;
             rungWidth = -this.projectedWidth * Math.pow(progress, 2) + this.projectedWidth;
 
-            c.beginPath();
             c.moveTo(this.x - rungWidth, rungBaseY);
             c.lineTo(this.x, startY - this.projectedHeight);
             c.lineTo(this.x + rungWidth, rungBaseY);
-            c.fill();
         }
+
+        // color tree
+        c.fillStyle = this.color;
+        c.shadowColor = this.shadowColor;
+        c.shadowBlur = 2;
+        c.shadowOffsetX = 0;
+        c.shadowOffsetY = 1;
+
+        c.fill();
     }
 }
