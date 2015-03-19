@@ -1,5 +1,7 @@
 import {c, canvas, mouseX} from 'canvas';
 
+const Z = 1.2;
+
 const POST_DIST = 32;
 const POST_HEIGHT = 100;
 const POST_WIDTH = 28;
@@ -18,19 +20,19 @@ const SLAT_DIST = POST_HEIGHT / NUM_SLATS;
 export class FencePost {
     constructor(x) {
         this.x = x;
+        this.updatePoints();
     }
 
-    draw() {
+    draw(offsetX) {
         let lastPoint;
 
-        this.updatePoints();
         lastPoint = this._points[this._points.length - 1];
 
         c.beginPath();
-        c.moveTo(lastPoint.x, lastPoint.y);
+        c.moveTo(lastPoint.x + offsetX, lastPoint.y);
 
         for (let point of this._points) {
-            c.lineTo(point.x, point.y);
+            c.lineTo(point.x + offsetX, point.y);
         }
 
         c.fillStyle = POST_COLOR;
@@ -45,7 +47,7 @@ export class FencePost {
         let baseY = canvas.height;
         let topY = canvas.height - POST_HEIGHT;
         let tipY = topY - POST_POINT;
-        let x = this.x + mouseX * 1.2;
+        let x = this.x;
         let leftX = x - POST_HALF_WIDTH;
         let rightX = x + POST_HALF_WIDTH;
 
@@ -95,6 +97,8 @@ export class FenceSlat {
 
 export class Fence {
     constructor() {
+        this.z = Z;
+
         this._slats = [];
         this._posts = [];
 
@@ -108,14 +112,16 @@ export class Fence {
     }
 
     draw() {
+        let offsetX = mouseX * this.z * this.z;
+
         c.save();
 
         for (let slat of this._slats) {
-            slat.draw();
+            slat.draw(offsetX);
         }
 
         for (let post of this._posts) {
-            post.draw();
+            post.draw(offsetX);
         }
 
         c.restore();

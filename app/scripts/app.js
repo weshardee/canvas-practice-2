@@ -9,10 +9,10 @@ const UPDATE_DELAY = 15;
 
 export class App {
     constructor() {
-        this._trees = [];
+        this._entities = [];
+        this._entities.push(new Fence());
         this.addTrees();
-        this.fence = new Fence();
-        this.rain = new Rain();
+        this.rain = new Rain(this._entities);
         this.draw();
 
         setInterval(() => {
@@ -20,16 +20,16 @@ export class App {
         }, UPDATE_DELAY);
     }
 
+    addRain() {
+        this.rain = new Rain();
+    }
+
     addTrees() {
         let numTrees = canvas.width * 0.03;
 
         for (let i = 0; i < numTrees; i++) {
-            this._trees.push(new Tree());
+            this._entities.push(new Tree());
         }
-
-        this._trees.sort((a, b) => {
-            return a.z - b.z;
-        });
     }
 
     drawSky() {
@@ -43,18 +43,20 @@ export class App {
     }
 
 
-    drawTrees() {
-        for(let i = 0; i < this._trees.length; i++) {
-            this._trees[i].draw();
+    drawEntities() {
+        for(let i = 0; i < this._entities.length; i++) {
+            this._entities[i].draw();
         }
     }
 
     draw() {
+        this._entities.sort((a, b) => {
+            return a.z - b.z;
+        });
+
         c.save();
         this.drawSky();
-        this.drawTrees();
-        this.fence.draw();
-        this.rain.draw();
+        this.drawEntities();
         c.restore();
 
         window.requestAnimationFrame(() => {

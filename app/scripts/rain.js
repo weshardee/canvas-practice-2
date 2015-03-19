@@ -52,7 +52,8 @@ class RainDrop {
 }
 
 export class Rain {
-    constructor() {
+    constructor(entitiesArray) {
+        this._entities = entitiesArray;
         this._drops = [];
     }
 
@@ -65,12 +66,6 @@ export class Rain {
         // move drops
         for (let drop of this._drops) {
             drop.update(dt);
-        }
-    }
-
-    draw() {
-        for (let drop of this._drops) {
-            drop.draw();
         }
     }
 
@@ -88,6 +83,7 @@ export class Rain {
         if (drop === undefined) {
             drop = new RainDrop();
             this._drops.push(drop);
+            this._entities.push(drop);
         }
 
         drop.isDead = false;
