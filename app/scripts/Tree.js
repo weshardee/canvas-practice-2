@@ -1,5 +1,5 @@
 import {Range} from 'Range';
-import {c, canvas} from 'canvas';
+import {c, canvas, mouseX} from 'canvas';
 
 const X_THRESHOLD = 40;
 
@@ -85,6 +85,7 @@ export class Tree {
         let rungWidth;
         let rungBaseY;
         let progress;
+        let x = this.x + mouseX * this.z * this.z;
 
         c.beginPath();
 
@@ -95,9 +96,9 @@ export class Tree {
             rungBaseY = -this.projectedHeight * Math.pow(progress, 1.2) + startY;
             rungWidth = -this.projectedWidth * Math.pow(progress, 2) + this.projectedWidth;
 
-            c.moveTo(this.x - rungWidth, rungBaseY);
-            c.lineTo(this.x, startY - this.projectedHeight);
-            c.lineTo(this.x + rungWidth, rungBaseY);
+            c.moveTo(x - rungWidth, rungBaseY);
+            c.lineTo(x, startY - this.projectedHeight);
+            c.lineTo(x + rungWidth, rungBaseY);
         }
 
         // color tree

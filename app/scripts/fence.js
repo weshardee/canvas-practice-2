@@ -1,4 +1,4 @@
-import {c, canvas} from 'canvas';
+import {c, canvas, mouseX} from 'canvas';
 
 const POST_DIST = 32;
 const POST_HEIGHT = 100;
@@ -17,14 +17,37 @@ const SLAT_DIST = POST_HEIGHT / NUM_SLATS;
 
 export class FencePost {
     constructor(x) {
+        this.x = x;
+    }
+
+    draw() {
+        let lastPoint;
+
+        this.updatePoints();
+        lastPoint = this._points[this._points.length - 1];
+
+        c.beginPath();
+        c.moveTo(lastPoint.x, lastPoint.y);
+
+        for (let point of this._points) {
+            c.lineTo(point.x, point.y);
+        }
+
+        c.fillStyle = POST_COLOR;
+        c.shadowColor = POST_DEPTH_COLOR;
+        c.shadowBlur = 0;
+        c.shadowOffsetX = 2;
+        c.shadowOffsetY = 1;
+        c.fill();
+    }
+
+    updatePoints() {
         let baseY = canvas.height;
         let topY = canvas.height - POST_HEIGHT;
         let tipY = topY - POST_POINT;
-
+        let x = this.x + mouseX * 1.2;
         let leftX = x - POST_HALF_WIDTH;
         let rightX = x + POST_HALF_WIDTH;
-
-        this.x = x;
 
         this._points = [];
 
@@ -53,25 +76,6 @@ export class FencePost {
             y: baseY
         };
     }
-
-    draw() {
-        let lastPoint = this._points[this._points.length - 1];
-
-
-        c.beginPath();
-        c.moveTo(lastPoint.x, lastPoint.y);
-
-        for (let point of this._points) {
-            c.lineTo(point.x, point.y);
-        }
-
-        c.fillStyle = POST_COLOR;
-        c.shadowColor = POST_DEPTH_COLOR;
-        c.shadowBlur = 0;
-        c.shadowOffsetX = 2;
-        c.shadowOffsetY = 1;
-        c.fill();
-    }
 }
 
 export class FenceSlat {
@@ -91,12 +95,10 @@ export class FenceSlat {
 
 export class Fence {
     constructor() {
-        let x = 0;
-
         this._slats = [];
         this._posts = [];
 
-        for (let x = 0; x < canvas.width + POST_DIST; x = x + POST_DIST) {
+        for (let x = -canvas.width; x < canvas.width * 2; x = x + POST_DIST) {
             this._posts.push(new FencePost(x));
         }
 
