@@ -5,6 +5,7 @@ const NUM_TREE_RUNGS = 3;
 const X_THRESHOLD = 40;
 
 let heightRange = new Range(400, 500);
+let widthRange = new Range(3, 4);
 let xRange = new Range(0, canvas.width);
 let zRange = new Range(0.5, 1);
 let hRange = new Range(110, 150);
@@ -25,7 +26,7 @@ export class Tree {
 
         // size
         this.height = heightRange.getRandom();
-        this.width = this.height / 4;
+        this.width = this.height / widthRange.getRandom();
         this.projectedHeight = this.height * powZ;
         this.projectedWidth = this.width * powZ;
 
