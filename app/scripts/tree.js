@@ -87,6 +87,7 @@ export class Tree {
         let progress;
         let x = this.x + mouseX * this.z * this.z;
 
+        c.save();
         c.beginPath();
 
         // draw rungs
@@ -109,5 +110,6 @@ export class Tree {
         c.shadowOffsetY = 1;
 
         c.fill();
+        c.restore();
     }
 }

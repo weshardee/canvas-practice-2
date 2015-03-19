@@ -108,6 +108,8 @@ export class Fence {
     }
 
     draw() {
+        c.save();
+
         for (let slat of this._slats) {
             slat.draw();
         }
@@ -115,5 +117,7 @@ export class Fence {
         for (let post of this._posts) {
             post.draw();
         }
+
+        c.restore();
     }
 }
