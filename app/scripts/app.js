@@ -25,17 +25,11 @@ export class App {
     }
 
     addTrees() {
-        var i;
-        var x;
-        var progress;
-        var numTrees = 40;
-        var depth;
+        let numTrees = canvas.width * 0.1;
 
-        for (i = 0; i < numTrees; i++) {
-            depth = 3 * (1 - i / numTrees);
-            progress = i / numTrees;
-            x = canvas.width * Math.random();
-            this._trees.push(new Tree(x, depth));
+        for (let i = 0; i < numTrees; i++) {
+            let x = canvas.width * Math.random();
+            this._trees.push(new Tree(x));
         }
 
         this._trees.sort((a, b) => {
