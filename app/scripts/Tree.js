@@ -5,7 +5,7 @@ const X_THRESHOLD = 40;
 
 let heightRange = new Range(400, 500);
 let widthRange = new Range(3, 4);
-let xRange = new Range(0, canvas.width);
+let xRange = new Range(-canvas.width * 0.25, canvas.width * 1.25);
 let zRange = new Range(0.5, 1);
 let hRange = new Range(110, 150);
 let sRange = new Range(50, 75);
