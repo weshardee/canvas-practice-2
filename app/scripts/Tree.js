@@ -3,7 +3,6 @@ import {c, canvas} from 'canvas';
 
 const NUM_TREE_RUNGS = 3;
 const X_THRESHOLD = 40;
-const Z_THRESHOLD = 0.3;
 
 let heightRange = new Range(400, 500);
 let xRange = new Range(0, canvas.width);
