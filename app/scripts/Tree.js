@@ -1,7 +1,6 @@
 import {Range} from 'Range';
 import {c, canvas} from 'canvas';
 
-const NUM_TREE_RUNGS = 3;
 const X_THRESHOLD = 40;
 
 let heightRange = new Range(400, 500);
