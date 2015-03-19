@@ -1,7 +1,7 @@
 'use strict';
 
-import {Tree} from './Tree';
-import {Fence} from './Fence';
+import {Tree} from './tree';
+import {Fence} from './fence';
 import {c, canvas} from 'canvas';
 
 export class App {

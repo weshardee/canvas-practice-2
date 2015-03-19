@@ -1,4 +1,4 @@
-import {Range} from 'Range';
+import {Range} from 'range';
 import {c, canvas, mouseX} from 'canvas';
 
 const X_THRESHOLD = 40;
