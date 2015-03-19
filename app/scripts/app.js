@@ -11,7 +11,7 @@ export class App {
     }
 
     addTrees() {
-        let numTrees = canvas.width * 0.01;
+        let numTrees = canvas.width * 0.03;
 
         for (let i = 0; i < numTrees; i++) {
             this._trees.push(new Tree());
