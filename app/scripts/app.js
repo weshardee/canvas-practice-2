@@ -42,8 +42,14 @@ export class App {
     }
 
     draw() {
+        c.save();
         this.drawSky();
         this.drawTrees();
         this.fence.draw();
+        c.restore();
+
+        window.requestAnimationFrame(() => {
+            this.draw();
+        });
     }
 }
