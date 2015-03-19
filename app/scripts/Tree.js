@@ -1,15 +1,13 @@
 import {Range} from 'Range';
+import {c, canvas} from 'canvas';
 
 const NUM_TREE_RUNGS = 3;
 
-let heightRange = new Range(220, 400);
+let heightRange = new Range(300, 500);
 let zRange = new Range(0.5, 1);
 let hRange = new Range(100, 150);
 let sRange = new Range(50, 75);
 let lRange = new Range(25, 42);
-
-let canvas = document.getElementById('canvas');
-let c = canvas.getContext('2d');
 
 export class Tree {
     constructor(x) {
@@ -28,8 +26,8 @@ export class Tree {
 
         // color
         let h = hRange.getRandom();
-        let s = sRange.getRandom() * powZ;
-        let l = lRange.getRandom() / powZ;
+        let s = sRange.getRandom() * this.z; // reduce sat
+        let l = lRange.getRandom() / this.z; // increase lightness
 
         this.color = `hsl(${h}, ${s}%, ${l}%)`;
     }

@@ -1,27 +1,13 @@
 'use strict';
 
 import {Tree} from './Tree';
-
-// initial setup
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-var c = ctx;
-
-var centerX;
-var centerY;
+import {c, canvas} from 'canvas';
 
 export class App {
     constructor() {
         this._trees = [];
-
-        this.resize();
         this.addTrees();
         this.draw();
-
-        window.onresize = () => {
-            this.resize();
-            this.draw();
-        };
     }
 
     addTrees() {
@@ -33,7 +19,7 @@ export class App {
         }
 
         this._trees.sort((a, b) => {
-            return a.z > b.z;
+            return a.z - b.z;
         });
     }
 
@@ -57,13 +43,5 @@ export class App {
     draw() {
         this.drawSky();
         this.drawTrees();
-    }
-
-    resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        centerX = canvas.width / 2;
-        centerY = canvas.height / 2;
     }
 }
