@@ -1,15 +1,23 @@
 'use strict';
 
+import {Rain} from './rain';
 import {Tree} from './tree';
 import {Fence} from './fence';
 import {c, canvas} from 'canvas';
+
+const UPDATE_DELAY = 15;
 
 export class App {
     constructor() {
         this._trees = [];
         this.addTrees();
         this.fence = new Fence();
+        this.rain = new Rain();
         this.draw();
+
+        setInterval(() => {
+            this.update();
+        }, UPDATE_DELAY);
     }
 
     addTrees() {
@@ -46,10 +54,34 @@ export class App {
         this.drawSky();
         this.drawTrees();
         this.fence.draw();
+        this.rain.draw();
         c.restore();
 
         window.requestAnimationFrame(() => {
             this.draw();
         });
+    }
+
+    update() {
+        let currentTime;
+        let deltaTime;
+
+        currentTime = Date.now();
+        deltaTime = currentTime - this.lastUpdated + this.deltaTime;
+
+        if (this.lastUpdated === undefined) {
+            this.lastUpdated = currentTime;
+            this.deltaTime = 0;
+            return;
+        }
+
+        this.lastUpdated = currentTime;
+
+        while (deltaTime >= UPDATE_DELAY) {
+            deltaTime = deltaTime - UPDATE_DELAY;
+            this.rain.update(UPDATE_DELAY);
+        }
+
+        this.deltaTime = deltaTime;
     }
 }
