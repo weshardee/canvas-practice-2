@@ -28,7 +28,7 @@ gulp.task('styles', function() {
 });
 
 gulp.task('scripts', function() {
-    return gulp.src('app/**/*.js', {base: 'app'})
+    return gulp.src('app/**/*.{js,map}', {base: 'app'})
         .pipe(gulp.dest('dist'));
 });
 
