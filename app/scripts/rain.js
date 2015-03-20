@@ -2,6 +2,7 @@ import {Particle} from 'drawables';
 import {Range} from 'range';
 import {c, canvas} from 'canvas';
 
+const MAX_DROPS = 2000;
 const DROP_SIZE = 2;
 const DROP_VELOCITY = 10;
 const WIND = 3;
@@ -70,7 +71,7 @@ export class Rain {
             }
         }
 
-        if (drop === undefined && this._drops.length >= 1000) {
+        if (drop === undefined && this._drops.length >= MAX_DROPS) {
             return; // prevent memory leaks by having ridiculous number of particles
         }
 
