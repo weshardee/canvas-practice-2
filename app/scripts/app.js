@@ -1,5 +1,6 @@
 'use strict';
 
+import {Entity} from 'drawables';
 import {Sky} from './sky';
 import {Rain} from './rain';
 import {Tree} from './tree';
@@ -8,43 +9,31 @@ import {c, canvas} from 'canvas';
 
 const UPDATE_DELAY = 15;
 
-export class App {
+export class App extends Entity {
     constructor() {
-        this._entities = [];
-        this._entities.push(new Fence());
-        this._entities.push(new Sky());
-        this.addTrees();
-        this.rain = new Rain(this._entities);
-        this.draw();
-        this.update();
-    }
+        super(0,0,0);
 
-    addRain() {
-        this.rain = new Rain();
+        // add scene objects
+        this.addChild(new Fence());
+        this.addChild(new Sky());
+        this.addTrees();
+
+        // add precipitation
+        this.rain = new Rain(this._children);
+
+        // this.draw();
+        this.update(); // start the update cycle
     }
 
     addTrees() {
         let numTrees = canvas.width * 0.03;
 
         for (let i = 0; i < numTrees; i++) {
-            this._entities.push(new Tree());
+            this.addChild(new Tree());
         }
-    }
-
-    draw() {
-        this._entities.sort((a, b) => {
-            return a.z - b.z;
-        });
-
-        c.save();
-        for (let entity of this._entities) {
-            entity.draw();
-        }
-        c.restore();
     }
 
     update() {
-        console.log('update');
         let currentTime;
         let deltaTime;
 
