@@ -26,7 +26,7 @@ class RainDrop extends Particle {
         let vx = this.x - this.oldX;
 
         // set blending mode & color
-        c.fillStyle = DROP_COLOR;
+        c.fillStyle = this.color;
         c.globalCompositeOperation = 'screen';
 
         // draw drop
@@ -48,7 +48,7 @@ export class Rain {
 
     update(dt) {
         // generate drops
-        for (let i = 0; i < dt / 3; i++) {
+        for (let i = 0; i < dt / 2; i++) {
             this.addDrop();
         }
 
@@ -86,6 +86,7 @@ export class Rain {
         // depth position and scale
         drop.z = z;
         drop.size = powZ * DROP_SIZE;
+        drop.color = `hsla(200, 100%, 75%, ${powZ / 5 + 0.1})`;
 
         // starting y position in the sky depends on depth
         drop.y = canvas.height - canvas.height * powZ;
