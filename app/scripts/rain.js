@@ -9,7 +9,7 @@ const WIND = 3;
 const DROP_COLOR = 'hsla(200, 100%, 75%, 0.75)';
 
 let xRange = new Range(-canvas.width * 0.5, canvas.width * 1.2);
-let zRange = new Range(0.25, 2);
+let zRange = new Range(0.25, 2, 2);
 
 class RainDrop extends Particle {
     update(dt) {
@@ -48,7 +48,7 @@ export class Rain {
 
     update(dt) {
         // generate drops
-        for (let i = 0; i < dt / 4; i++) {
+        for (let i = 0; i < dt / 3; i++) {
             this.addDrop();
         }
 
