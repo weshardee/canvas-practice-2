@@ -8,7 +8,6 @@ const WIND = 3;
 const DROP_COLOR = 'hsla(200, 100%, 75%, 0.75)';
 
 let xRange = new Range(-canvas.width * 0.5, canvas.width * 1.2);
-let yRange = new Range(0, -canvas.height);
 let zRange = new Range(0.25, 2);
 
 class RainDrop extends Particle {
@@ -60,6 +59,8 @@ export class Rain {
 
     addDrop() {
         let drop;
+        let z = zRange.getRandom();
+        let powZ = z * z;
 
         // find first available drop
         for (let d of this._drops) {
@@ -80,11 +81,17 @@ export class Rain {
         }
 
         drop.isDead = false;
-        drop.z = zRange.getRandom();
+
+        // depth position and scale
+        drop.z = z;
+        drop.size = powZ * DROP_SIZE;
+
+        // starting y position in the sky depends on depth
+        drop.y = canvas.height - canvas.height * powZ;
+        drop.oldY = drop.y - DROP_VELOCITY * powZ;
+
+        // random
         drop.x = drop.oldX = xRange.getRandom();
         drop.oldX = drop.x - WIND * drop.z * drop.z;
-        drop.y = yRange.getRandom();
-        drop.oldY = drop.y - DROP_VELOCITY * drop.z * drop.z;
-        drop.size = drop.z * drop.z * DROP_SIZE;
     }
 }
