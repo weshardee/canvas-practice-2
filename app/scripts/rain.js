@@ -1,5 +1,6 @@
+import {Particle} from 'drawables';
 import {Range} from 'range';
-import {c, canvas, mouseX} from 'canvas';
+import {c, canvas} from 'canvas';
 
 const DROP_SIZE = 2;
 const DROP_VELOCITY = 10;
@@ -10,50 +11,38 @@ let xRange = new Range(-canvas.width * 0.5, canvas.width * 1.2);
 let yRange = new Range(0, -canvas.height);
 let zRange = new Range(0.25, 2);
 
-class RainDrop {
-    constructor() {
-
-    }
-
+class RainDrop extends Particle {
     update(dt) {
-        let vx = this.x - this.oldX;
-        let vy = this.y - this.oldY;
-
-        this.oldX = this.x;
-        this.oldY = this.y;
-
-        this.x = this.x + vx;
-        this.y = this.y + vy;
+        super.update(dt);
 
         if (this.oldY > canvas.height * 3 * this.z * this.z) {
             this.isDead = true;
         }
     }
 
-    draw() {
-        let xOffset = mouseX * this.z * this.z;
+    render() {
         let r = DROP_SIZE * this.z * this.z;
+        let vy = this.y - this.oldY;
+        let vx = this.x - this.oldX;
 
-        c.save();
-
-        c.globalCompositeOperation = 'screen';
-        c.beginPath();
-        c.moveTo(this.x - r + xOffset, this.y);
-        c.lineTo(this.oldX + xOffset, this.oldY);
-        c.lineTo(this.x + r + xOffset, this.y);
-        c.arc(this.x + xOffset, this.y, r, 0, Math.PI);
-
+        // set blending mode & color
         c.fillStyle = DROP_COLOR;
+        c.globalCompositeOperation = 'screen';
+
+        // draw drop
+        c.arc(0, 0, r, 0, Math.PI * 2);
+        c.moveTo(-r, 0);
+        c.lineTo(-vx, -vy);
+        c.lineTo(r, 0);
+
         c.closePath();
         c.fill();
-
-        c.restore();
     }
 }
 
 export class Rain {
-    constructor(entitiesArray) {
-        this._entities = entitiesArray;
+    constructor(entity) {
+        this._entity = entity;
         this._drops = [];
     }
 
@@ -80,10 +69,14 @@ export class Rain {
             }
         }
 
+        if (drop === undefined && this._drops.length >= 1000) {
+            return; // prevent memory leaks by having ridiculous number of particles
+        }
+
         if (drop === undefined) {
             drop = new RainDrop();
             this._drops.push(drop);
-            this._entities.push(drop);
+            this._entity.addChild(drop);
         }
 
         drop.isDead = false;

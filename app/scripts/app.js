@@ -19,7 +19,7 @@ export class App extends Entity {
         this.addTrees();
 
         // add precipitation
-        this.rain = new Rain(this._children);
+        this.rain = new Rain(this);
 
         // this.draw();
         this.update(); // start the update cycle
