@@ -62,27 +62,5 @@ export class Rect extends Shape {
     render() {
         c.fillStyle = this.color;
         c.fillRect(this.x, this.y, this.w, this.h);
-        c.fill();
-        // c.closePath();
-        c.stroke();
-    }
-}
-
-export class TestEntity2 extends Entity {
-    constructor(x, y, z) {
-        super(x, y, z);
-
-        this.addChild(new Rect(200, 200, 'green'));
-        this.addChild(new Rect(100, 100, 'yellow'));
-    }
-}
-
-export class TestEntity extends Entity {
-    constructor(x, y, z) {
-        super(x, y, z);
-
-        this.addChild(new Rect(200, 200, 'blue'));
-        this.addChild(new Rect(100, 100, 'red'));
-        this.addChild(new TestEntity2(-200, -200));
     }
 }
