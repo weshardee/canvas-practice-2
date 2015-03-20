@@ -14,7 +14,7 @@ export class App extends Entity {
         super(0,0,0);
 
         // add scene objects
-        this.addChild(new Fence());
+        this.addChild(new Fence(canvas.width * -0.25, canvas.width * 1.5, canvas.height));
         this.addChild(new Sky());
         this.addTrees();
 
