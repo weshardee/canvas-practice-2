@@ -1,11 +1,14 @@
 export class Range {
-    constructor(min, max) {
+    constructor(min, max, weight) {
         this.min = min;
         this.max = max;
         this.delta = max - min;
+        this.weight = weight || 1;
     }
 
     getRandom() {
-        return Math.random() * this.delta + this.min;
+        let random = Math.random();
+        random = Math.pow(random, this.weight);
+        return random * this.delta + this.min;
     }
 }
