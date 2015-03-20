@@ -64,3 +64,16 @@ export class Rect extends Shape {
         c.fillRect(this.x, this.y, this.w, this.h);
     }
 }
+
+export class Particle extends Shape {
+    update() {
+        let vx = this.x - this.oldX;
+        let vy = this.y - this.oldY;
+
+        this.oldX = this.x;
+        this.oldY = this.y;
+
+        this.x = this.x + vx;
+        this.y = this.y + vy;
+    }
+}
